@@ -1,0 +1,183 @@
+<div class="bg-image">
+    <div class="sidebar m-5 border border-info rounded-5">
+      <ul class="nav flex-column m-2">
+        <li class="nav-item mt-3">
+          <a routerLink="" class="nav-link fs-5 active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cloud-lightning-rain" viewBox="0 0 16 16">
+              <path d="M2.658 11.026a.5.5 0 0 1 .316.632l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.316m9.5 0a.5.5 0 0 1 .316.632l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.316m-7.5 1.5a.5.5 0 0 1 .316.632l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.316m9.5 0a.5.5 0 0 1 .316.632l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.316m-.753-8.499a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10H13a3 3 0 0 0 .405-5.973M8.5 1a4 4 0 0 1 3.976 3.555.5.5 0 0 0 .5.445H13a2 2 0 0 1 0 4H3.5a2.5 2.5 0 1 1 .605-4.926.5.5 0 0 0 .596-.329A4 4 0 0 1 8.5 1M7.053 11.276A.5.5 0 0 1 7.5 11h1a.5.5 0 0 1 .474.658l-.28.842H9.5a.5.5 0 0 1 .39.812l-2 2.5a.5.5 0 0 1-.875-.433L7.36 14H6.5a.5.5 0 0 1-.447-.724z"/>
+            </svg>
+            <span>Weather</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <a routerLink="/cities" class="nav-link fs-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-buildings" viewBox="0 0 16 16">
+              <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z"/>
+              <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z"/>
+            </svg>
+            <span>Cities</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <a routerLink="/map" class="nav-link fs-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pin-map-fill" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z"/>
+              <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
+            </svg>
+            <span>Map</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-8">
+      <input type="text" class="form-control mt-5 border border-info rounded-4" placeholder="Search for cities">
+      <div class="mt-5 ms-5 me-5">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            @if(isLoading) {
+                <fa-icon class="text-white" style="font-size: 3rem;" [icon]="faSpinner" animation="spin" />
+            } @else {
+                <h2 class="card-title text-white fw-bolder" style="font-size: 3rem;">{{ this.city }}</h2>
+                <h2 class="card-title text-white mt-5 fw-bolder" style="font-size: 5rem;">{{ this.temperature }}</h2>
+            }
+          </div>
+          @if(isLoading) {
+            <fa-icon class="text-white" style="font-size: 3rem;" [icon]="faSpinner" animation="spin" />
+          } @else {
+            @if( this.weather == 'sunny' ) {
+                <img src="../assets/images/sunny.png" width="250" height="250">
+              } @else if ( this.weather == 'rainy' ) {
+                <img src="../assets/images/rainy.png" width="250" height="250">
+              } @else if ( this.weather == 'cloudy' ) {
+                <img src="../assets/images/cloudy.png" width="250" height="250">
+              }
+          }
+        </div>
+      </div>
+      <div class="mt-5 border border-info rounded-4">
+        <div class="m-4">
+          <div class="fw-bolder">
+            TODAY'S FORECAST
+          </div>
+          <div class="row m-4">
+            @if(isLoading) {
+                <fa-icon class="text-white text-center" style="font-size: 3rem;" [icon]="faSpinner" animation="spin" />
+            } @else {
+                @for(data of this.todaysForecast; track data.index) {
+                    <div class="col-2">
+                      <div class="item text-center">
+                        <i>{{ data.time }}</i>
+                        <br>
+                        @if( data.weather == 'sunny' ) {
+                          <img src="../assets/images/sunny.png" class="img-fluid" alt="Sunny" width="100" height="100">
+                        } @else if ( data.weather == 'rainy' ) {
+                          <img src="../assets/images/rainy.png" class="img-fluid" alt="Rainy" width="100" height="100">
+                        } @else if ( data.weather == 'cloudy' ) {
+                          <img src="../assets/images/cloudy.png" class="img-fluid" alt="Cloudy" width="100" height="100">
+                        }
+                        <br>
+                        <span class="fw-bolder text-white">{{ data.temperature }}</span>
+                      </div>
+                    </div>
+                }
+            }
+          </div>
+        </div>
+      </div>
+      <div class="mt-5 border border-info rounded-4">
+        <div class="m-4">
+          <div class="fw-bolder">
+            AIR CONDITIONS
+          </div>
+          <div class="d-flex flex-row justify-content-between item-container m-4">
+            <div class="item text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-thermometer" viewBox="0 0 16 16">
+                <path d="M8 14a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                <path d="M8 0a2.5 2.5 0 0 0-2.5 2.5v7.55a3.5 3.5 0 1 0 5 0V2.5A2.5 2.5 0 0 0 8 0M6.5 2.5a1.5 1.5 0 1 1 3 0v7.987l.167.15a2.5 2.5 0 1 1-3.333 0l.166-.15z"/>
+              </svg>
+              <i class="m-2" style="font-size: 1.5rem;">Apparent temperature</i>
+              <br>
+              @if(isLoading) {
+                <fa-icon class="text-white text-center" style="font-size: 2rem;" [icon]="faSpinner" animation="spin" />
+              } @else {
+                <span class="fw-bolder text-white" style="font-size: 2rem;">{{ this.realFeel }}</span>
+              }
+            </div>
+            <div class="item text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wind" viewBox="0 0 16 16">
+                <path d="M12.5 2A2.5 2.5 0 0 0 10 4.5a.5.5 0 0 1-1 0A3.5 3.5 0 1 1 12.5 8H.5a.5.5 0 0 1 0-1h12a2.5 2.5 0 0 0 0-5m-7 1a1 1 0 0 0-1 1 .5.5 0 0 1-1 0 2 2 0 1 1 2 2h-5a.5.5 0 0 1 0-1h5a1 1 0 0 0 0-2M0 9.5A.5.5 0 0 1 .5 9h10.042a3 3 0 1 1-3 3 .5.5 0 0 1 1 0 2 2 0 1 0 2-2H.5a.5.5 0 0 1-.5-.5"/>
+              </svg>
+              <i class="m-2" style="font-size: 1.5rem;">Wind</i>
+              <br>
+              @if(isLoading) {
+                <fa-icon class="text-white text-center" style="font-size: 2rem;" [icon]="faSpinner" animation="spin" />
+              } @else {
+                <span class="fw-bolder text-white" style="font-size: 2rem;">{{ this.wind }}</span>
+              }
+            </div>
+            <div class="item text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-droplet-fill" viewBox="0 0 16 16">
+                <path d="M8 16a6 6 0 0 0 6-6c0-1.655-1.122-2.904-2.432-4.362C10.254 4.176 8.75 2.503 8 0c0 0-6 5.686-6 10a6 6 0 0 0 6 6M6.646 4.646l.708.708c-.29.29-1.128 1.311-1.907 2.87l-.894-.448c.82-1.641 1.717-2.753 2.093-3.13"/>
+              </svg>
+              <i class="m-2" style="font-size: 1.5rem;">Rain</i>
+              <br>
+              @if(isLoading) {
+                <fa-icon class="text-white text-center" style="font-size: 2rem;" [icon]="faSpinner" animation="spin" />
+              } @else {
+                <span class="fw-bolder text-white" style="font-size: 2rem;">{{ this.rain }}</span>
+              }
+            </div>
+            <div class="item text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-sun-fill" viewBox="0 0 16 16">
+                <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+              </svg>
+              <i class="m-2" style="font-size: 1.5rem;">UV Index</i>
+              <br>
+              @if(isLoading) {
+                <fa-icon class="text-white text-center" style="font-size: 2rem;" [icon]="faSpinner" animation="spin" />
+              } @else {
+                <span class="fw-bolder text-white" style="font-size: 2rem;">{{ this.uvIndex }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="m-5 border border-info rounded-4 w-100">
+      <div class="m-4">
+        <div class="fw-bolder">
+          7-DAY FORECAST
+        </div>
+        @if(isLoading) {
+            <fa-icon class="text-white" style="font-size: 2rem;" [icon]="faSpinner" animation="spin" />
+          } @else {
+            @for(data of this.sevenDaysForecast; track data.index) {
+                <div class="d-flex flex-row justify-content-between align-items-center item-container m-4">
+                  <div class="item text-center">
+                    @if(data.index === 0) {
+                      Today
+                    } @else {
+                      {{ data.day }}
+                    }
+                  </div>
+                  <div class="item text-center">
+                    @if( data.weather == 'sunny' ) {
+                      <img src="../assets/images/sunny.png" class="img-fluid" alt="Sunny" width="75" height="75">
+                      <span class="ms-3 fw-bolder text-white">Sunny</span>
+                    } @else if ( data.weather == 'rainy' ) {
+                      <img src="../assets/images/rainy.png" class="img-fluid" alt="Rainy" width="75" height="75">
+                      <span class="ms-3 fw-bolder text-white">Rainy</span>
+                    } @else if ( data.weather == 'cloudy' ) {
+                      <img src="../assets/images/cloudy.png" class="img-fluid" alt="Cloudy" width="75" height="75">
+                      <span class="ms-3 fw-bolder text-white">Cloudy</span>
+                    }
+                  </div>
+                  <div class="item text-center">
+                    <span class="fw-bolder text-white">{{ data.maxTemp }}</span> / <span>{{ data.minTemp }}</span>
+                  </div>
+                </div>
+              }
+          }
+      </div>
+    </div>
+  </div>
