@@ -8,11 +8,12 @@ import {
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {SearchComponent} from "../../search/search.component";
 
 @Component({
   selector: 'app-weather',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, RouterLink, RouterModule, FontAwesomeModule],
+  imports: [RouterOutlet, HttpClientModule, RouterLink, RouterModule, FontAwesomeModule, SearchComponent],
   templateUrl: './weather.component.html',
   styleUrl: './weather.component.css'
 })
@@ -25,11 +26,14 @@ export class WeatherComponent {
   city: any;
   temperature: any;
   weather: any;
-  
+
   realFeel: any;
   wind: any;
   rain: any;
   uvIndex: any;
+
+  searchQuery = '';
+  filteredCities: any[] = [];
 
   todaysForecast: any = [];
   sevenDaysForecast: any = [];
@@ -40,7 +44,7 @@ export class WeatherComponent {
     this.isLoading = true;
     this.http.get<any>('https://geocoding-api.open-meteo.com/v1/search?name=Vilnius').pipe(
       switchMap((data) => {
-        this.city = data.results[0].timezone;
+        this.city = data.results[0].name;
         return this.http.get<any>('https://api.open-meteo.com/v1/forecast?latitude='+data.results[0].latitude+'&longitude='+data.results[0].longitude+'&current=temperature_2m,precipitation,apparent_temperature,rain,weather_code,wind_speed_10m&hourly=weather_code,temperature_2m,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,uv_index_max&timezone=auto');
       })
     ).subscribe(
@@ -78,10 +82,10 @@ export class WeatherComponent {
       if (time >= 12) {
         period = 'PM';
       }
-  
+
       let hour = time % 12;
       hour = hour === 0 ? 12 : hour;
-  
+
       this.todaysForecast[index] = {
         index: index,
         time: `${hour} ${period}`,
@@ -109,4 +113,9 @@ export class WeatherComponent {
     const dayIndex = date.getDay(); // Get the day index (0-6)
     return days[dayIndex]; // Return the day name
   }
+
+  handleSearchChange(searchQuery: string) {
+    this.searchQuery = searchQuery;
+  }
+
 }

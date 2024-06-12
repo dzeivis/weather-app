@@ -1,0 +1,12 @@
+<form>
+  <input type="text" class="form-control mt-5 p-3 border border-info rounded-4" [formControl]="searchQuery" placeholder="🔍">
+</form>
+<div class="dropdown">
+  <ul class="list-group mt-2">
+    @for(city of filteredCities; track city.id) {
+      <li class="list-group-item list-group-item-action" (click)="selectCity(city)">
+        {{ city.country }}, {{ city.name }}
+      </li>
+    }
+  </ul>
+</div>

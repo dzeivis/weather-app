@@ -1,12 +1,30 @@
-
-
 .bg-image {
-    background-color: rgb(11, 19, 30);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
+  background-color: rgb(11, 19, 30);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+.bg-image::after {
+  content: "";
+  flex-grow: 1;
+  background-color: #fff;
+}
+
+@media (min-width: 768px) {
+  .bg-image {
+    flex-direction: row;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .bg-image::after {
+    display: none;
+  }
 }
 
 .nav-link {
@@ -27,7 +45,7 @@
 
 input {
     height: 60px;
-    
+
     color: white;
 }
 input::placeholder {
